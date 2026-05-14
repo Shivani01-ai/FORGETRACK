@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void: #07070B;
+  --bg-canvas: #0B0B11;
+  --text-primary: #F5F5F7;
+  --text-secondary: #8A8A94;
+  --text-tertiary: #52525B;
+  --accent-glow: #6366F1;
+  --accent-glow-rgb: 99, 102, 241;
+  --font-display: 'Satoshi', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.5);
+  --shadow-raised: 0 20px 40px -15px rgba(0,0,0,0.7);
+  --card-gradient: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+  --glow-cosmic: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99,102,241,0.15), transparent);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-void);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  .app-main {
+    background-image: var(--glow-cosmic);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
