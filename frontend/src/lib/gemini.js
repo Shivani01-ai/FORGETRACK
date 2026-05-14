@@ -14,7 +14,7 @@ export async function analyzeAttendanceSheet(sampleData, typicalDays = "Not spec
     ${JSON.stringify(sampleData, null, 2)}
     
     CONSTRAINTS:
-    1. Identify indices for: 'usn', 'name', 'email', 'branch_code'.
+    1. Identify indices for: 'usn', 'name', 'email', 'branch_code', 'n8n_link' (e.g. 'n8n invite links').
     2. Identify indices for attendance dates (Headers like '30/04/24' or serials like 45788).
     3. Detect attendance values (e.g., 'P/A', '1/0').
 
@@ -24,7 +24,8 @@ export async function analyzeAttendanceSheet(sampleData, typicalDays = "Not spec
         "usn": { "index": number, "colName": "string" }, 
         "name": { "index": number, "colName": "string" }, 
         "email": { "index": number, "colName": "string" }, 
-        "branch_code": { "index": number, "colName": "string" } 
+        "branch_code": { "index": number, "colName": "string" },
+        "n8n_link": { "index": number, "colName": "string" }
       },
       "attendanceColumns": [
         { "index": number, "date": "YYYY-MM-DD", "originalHeader": "string", "isSuggested": boolean }
@@ -34,7 +35,9 @@ export async function analyzeAttendanceSheet(sampleData, typicalDays = "Not spec
   `;
 
   // Using gemini-2.5-flash-lite specifically from the provided list
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+  const model = "gemini-2.5-flash-lite";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  console.log(`Calling Gemini API with model: ${model} (Key length: ${apiKey.length})`);
 
   try {
     const response = await fetch(url, {
